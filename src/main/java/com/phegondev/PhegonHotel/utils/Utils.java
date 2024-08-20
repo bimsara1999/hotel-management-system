@@ -29,7 +29,7 @@ public class Utils {
     }
 
 
-    public static UserDTO mapUserEntityToUserDTO(User user) {
+   /* public static UserDTO mapUserEntityToUserDTO(User user) {
         UserDTO userDTO = new UserDTO();
 
         userDTO.setId(user.getId());
@@ -38,9 +38,21 @@ public class Utils {
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setRole(user.getRole());
         return userDTO;
+    }*/
+
+
+    public static UserDTO mapUserEntityToUserDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setName(user.getName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPhoneNumber(user.getPhoneNumber());
+        userDTO.setRole(user.getRole());
+        return userDTO;
+
     }
 
-  /  public static RoomDTO mapRoomEntityToRoomDTO(Room room) {
+   public static RoomDTO mapRoomEntityToRoomDTO(Room room) {
         RoomDTO roomDTO = new RoomDTO();
 
         roomDTO.setId(room.getId());
