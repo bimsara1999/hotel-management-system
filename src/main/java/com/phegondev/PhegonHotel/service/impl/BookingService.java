@@ -127,15 +127,5 @@ public class BookingService implements IBookingService {
     public Response cancelBooking(Long bookingId) {
         return null;
     }
-}
 
-    @Override
-    public Response getAllBookings() {
-        return null;
-    }
-
-    @Override
-    public Response cancelBooking(Long bookingId) {
-        return null;
-    }
 }
