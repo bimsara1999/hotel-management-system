@@ -13,6 +13,7 @@ import com.phegondev.PhegonHotel.service.interfac.IBookingService;
 import com.phegondev.PhegonHotel.service.interfac.IRoomService;
 import com.phegondev.PhegonHotel.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,6 +93,8 @@ public class BookingService implements IBookingService {
                 );
     }
 
+
+
     @Override
     public Response findBookingByConfirmationCode(String confirmationCode) {
         Response response = new Response();
@@ -118,14 +121,54 @@ public class BookingService implements IBookingService {
         return response;
     }
 
+
+
     @Override
     public Response getAllBookings() {
-        return null;
+
+        Response response = new Response();
+
+        try {
+            List<Booking> bookingList = bookingRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+            List<BookingDTO> bookingDTOList = Utils.mapBookingListEntityToBookingListDTO(bookingList);
+            response.setStatusCode(200);
+            response.setMessage("successful");
+            response.setBookingList(bookingDTOList);
+
+        } catch (OurException e) {
+            response.setStatusCode(404);
+            response.setMessage(e.getMessage());
+
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Getting all bookings: " + e.getMessage());
+
+        }
+        return response;
     }
 
     @Override
     public Response cancelBooking(Long bookingId) {
-        return null;
+
+        Response response = new Response();
+
+        try {
+            bookingRepository.findById(bookingId).orElseThrow(() -> new OurException("Booking Does Not Exist"));
+            bookingRepository.deleteById(bookingId);
+            response.setStatusCode(200);
+            response.setMessage("successful");
+
+        } catch (OurException e) {
+            response.setStatusCode(404);
+            response.setMessage(e.getMessage());
+
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Cancelling a booking: " + e.getMessage());
+
+        }
+        return response;
     }
+
 
 }
