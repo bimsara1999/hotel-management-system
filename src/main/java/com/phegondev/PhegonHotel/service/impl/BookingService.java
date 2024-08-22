@@ -98,11 +98,11 @@ public class BookingService implements IBookingService {
 
         try{
           Booking booking = bookingRepository.findByBookingConfirmationCode(confirmationCode).orElseThrow(()-> new OurException("Booking Not Found"));
-            BookingDTO bookingDTO = Utils.mapBookingEntityToBookingDTO(booking)
+            BookingDTO bookingDTO = Utils.mapBookingEntityToBookingDTO(booking);
 
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setBookingConfirmationCode(bookingConfirmationCode);
+            response.setBooking(bookingDTO);
 
         } catch (OurException e) {
             response.setStatusCode(404);
@@ -117,7 +117,17 @@ public class BookingService implements IBookingService {
 
         return response;
     }
+
+    @Override
+    public Response getAllBookings() {
+        return null;
     }
+
+    @Override
+    public Response cancelBooking(Long bookingId) {
+        return null;
+    }
+}
 
     @Override
     public Response getAllBookings() {
